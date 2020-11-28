@@ -35,10 +35,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$gdrts_dt_dirname_basic = dirname( __FILE__ ) . '/';
-$gdrts_dt_urlname_basic = plugins_url( '/gd-rating-system-demo-reviews/' );
+$gdrts_dr_dirname_basic = dirname( __FILE__ ) . '/';
+$gdrts_dr_urlname_basic = plugins_url( '/gd-rating-system-demo-reviews/' );
 
-define( 'GDRTS_DT_PATH', $gdrts_dt_dirname_basic );
-define( 'GDRTS_DT_URL', $gdrts_dt_urlname_basic );
+define( 'GDRTS_DR_PATH', $gdrts_dr_dirname_basic );
+define( 'GDRTS_DR_URL', $gdrts_dr_urlname_basic );
 
-require_once( GDRTS_DT_PATH . 'core/demo.php' );
+require_once( GDRTS_DR_PATH . 'core/demo.php' );
