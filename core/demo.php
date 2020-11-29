@@ -28,8 +28,8 @@ class gdrts_core_demo_reviews {
 		/* Prepare query for additional filter fields */
 		add_filter( 'gdrts_ur_prepare_query_filter', array( $this, 'prepare_query_filter' ) );
 
-		/* Expand query with filter for 'hosting-type' */
-		add_filter( 'gdrts_ur_query_filter_to_meta_query_for_hosting-type', array(
+		/* Expand query with filter for 'host-type' */
+		add_filter( 'gdrts_ur_query_filter_to_meta_query_for_host-type', array(
 			$this,
 			'filter_meta_query'
 		), 10, 2 );
@@ -64,7 +64,7 @@ class gdrts_core_demo_reviews {
 
 	public function save_extra_field( $comment_id, $comment ) {
 		$valid_types  = array_keys( $this->hosting_type_list() );
-		$hosting_type = isset( $_POST['hosting-type'] ) ? d4p_sanitize_basic( $_POST['hosting-type'] ) : false;
+		$hosting_type = isset( $_POST['host-type'] ) ? d4p_sanitize_basic( $_POST['host-type'] ) : false;
 
 		if ( $hosting_type !== false ) {
 			if ( ! in_array( $hosting_type, $valid_types ) ) {
@@ -76,17 +76,17 @@ class gdrts_core_demo_reviews {
 	}
 
 	public function form_extra_field() {
-		if ( gdrts_ur()->post_type == 'hosting' ) {
+		if ( gdrts_ur()->post_type == 'host' ) {
 
 			?>
 
-            <div class="gdrts-review-form-field gdrts-review-form-field-hosting-type" data-field="hosting-type">
-                <label for="gdrts-review-form-hosting-type">
+            <div class="gdrts-review-form-field gdrts-review-form-field-host-type" data-field="host-type">
+                <label for="gdrts-review-form-host-type">
                     <span>Hosting Type</span></label>
 				<?php gdrts_ur_dropdown( $this->hosting_type_list(), array(
 					'selected' => gdrts_the_review()->get_meta( '_gdrts_review_host_type', true, 'shared' ),
-					'name'     => 'hosting-type',
-					'id'       => 'gdrts-review-form-hosting-type'
+					'name'     => 'host-type',
+					'id'       => 'gdrts-review-form-host-type'
 				) ); ?>
             </div>
 
@@ -96,12 +96,12 @@ class gdrts_core_demo_reviews {
 	}
 
 	public function review_item_extra_field() {
-		if ( gdrts_ur()->post_type == 'hosting' ) {
+		if ( gdrts_ur()->post_type == 'host' ) {
 			$_hosting_type = gdrts_the_review()->get_meta( '_gdrts_review_host_type', true, 'shared' );
 
 			?>
 
-            <div class="gdrts-user-review-content-hosting-type">
+            <div class="gdrts-user-review-content-host-type">
                 <h4>This review is related to</h4>
 				<?php
 
@@ -117,20 +117,20 @@ class gdrts_core_demo_reviews {
 	}
 
 	public function filter_extra_field() {
-		if ( gdrts_ur_is_filter_available( 'hosting' ) ) {
+		if ( gdrts_ur_is_filter_available( 'host' ) ) {
 
 			?>
 
-            <div class="gdrts-user-reviews-hosting-type">
+            <div class="gdrts-user-reviews-host-type">
                 <label>Hosting</label>
 				<?php
 
 				gdrts_ur_dropdown( array_merge( array( '' => 'All' ), $this->hosting_type_list() ), array(
-					'selected' => gdrts_ur_ctrl()->f( 'hosting-type' ),
+					'selected' => gdrts_ur_ctrl()->f( 'host-type' ),
 					'class'    => 'gdrts-user-reviews-filter-element',
-					'id'       => 'gdrts-ur-filter-el-hosting-type'
+					'id'       => 'gdrts-ur-filter-el-host-type'
 				), array(
-					'filter'  => 'hosting-type',
+					'filter'  => 'host-type',
 					'default' => ''
 				) );
 
@@ -142,10 +142,10 @@ class gdrts_core_demo_reviews {
 	}
 
 	public function prepare_query_filter( $filter ) {
-		$_type = isset( $_GET['reviews-hosting-type'] ) ? d4p_sanitize_key_expanded( $_GET['reviews-hosting-type'] ) : '';
+		$_type = isset( $_GET['host-type'] ) ? d4p_sanitize_key_expanded( $_GET['host-type'] ) : '';
 
 		if ( in_array( $_type, array_keys( $this->hosting_type_list() ) ) ) {
-			$filter['hosting-type'] = $_type;
+			$filter['host-type'] = $_type;
 		}
 
 		return $filter;
