@@ -106,7 +106,7 @@ class gdrts_core_demo_reviews {
 				<?php
 
 				$_types = $this->hosting_type_list();
-				echo $_types[ $_hosting_type ];
+				echo $_types[ $_hosting_type ] . ' Hosting';
 
 				?>
             </div>
@@ -142,7 +142,7 @@ class gdrts_core_demo_reviews {
 	}
 
 	public function prepare_query_filter( $filter ) {
-		$_type = isset( $_GET['host-type'] ) ? d4p_sanitize_key_expanded( $_GET['host-type'] ) : '';
+		$_type = isset( $_GET['reviews-host-type'] ) ? d4p_sanitize_key_expanded( $_GET['reviews-host-type'] ) : '';
 
 		if ( in_array( $_type, array_keys( $this->hosting_type_list() ) ) ) {
 			$filter['host-type'] = $_type;
